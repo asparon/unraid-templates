@@ -1,36 +1,51 @@
 <?xml version="1.0"?>
 <Container version="2">
-  <Name>obs-ndi</Name>
+  <Name>OBS-NDI</Name>
   <Repository>asparon/obs-ndi</Repository>
-  <Registry>https://hub.docker.com/repository/docker/asparon/obs-ndi</Registry>
+  <Registry>https://hub.docker.com/r/asparon/obs-ndi</Registry>
   <Network>br0</Network>
-  <MyIP></MyIP>
+  <MyIP/>
   <Shell>sh</Shell>
   <Privileged>false</Privileged>
   <Support>https://forums.unraid.net/topic/145651-support-obs-ndi-qt6/</Support>
-  <Project>https://github.com/asparon/obs-ndi</Project>
-  <Overview>The OBS with NDI is incorporated into the container and can be used to stream your desktop. &#xD;
-The latest version of OBS is based on QT6.&#xD;
+  <Project>https://hub.docker.com/r/asparon/obs-ndi</Project>
+  <Overview>Docker OBS and NDI (QT6)&#xD;
 &#xD;
-The VNC password is 'headless'.&#xD;
+This container is based on https://hub.docker.com/r/patrickstigler/obs-ndi. Due to some QT-changes in the OBS code the initial version by patrick needed some changes.&#xD;
+To start the container:&#xD;
 &#xD;
-You can connect with your own VNC client at 5901 or use the webclient at 6901</Overview>
-  <Category>GameServers: Productivity: MediaApp:Video MediaServer:Video</Category>
+docker run --shm-size=256m -it -e VNC_PASSWD=headless -p 5901:5901 -p 6901:6901 -p 4455:4455 asparon/obs-ndi:latest&#xD;
+The shm-size argument is to make sure that the webclient does not run out of shared memory and crash.&#xD;
+ &#xD;
+You have to change the "Network Type" to "Custom: br0" in order to be able to find the NDI-Source of your desktop in the container an vice versa.&#xD;
+ &#xD;
+You can change the default VNC password of 'headless'.&#xD;
+ &#xD;
+You can connect with your own VNC client via 5901 or use the webclient at 6901.&#xD;
+To enable GPU Support:&#xD;
+&#xD;
+Nvidia:&#xD;
+&#xD;
+add -e NVIDIA_VISIBLE_DEVICES=your_GPU_ID -e NVIDIA_DRIVER_CAPABILITIES=all and also add --runtime=nvidia as extra parameter.&#xD;
+Intel:&#xD;
+&#xD;
+add --device=/dev/dri (not tested yet)</Overview>
+  <Category>GameServers: Tools: MediaApp:Video Status:Stable</Category>
   <WebUI>http://[IP]:[PORT:6901]/</WebUI>
-  <TemplateURL>https://raw.githubusercontent.com/asparon/unraid-templates/master/obs-ndi.xml</TemplateURL>
+  <TemplateURL/>
   <Icon>https://obsproject.com/assets/images/new_icon_small-r.png</Icon>
-  <ExtraParams>--device=/dev/dri</ExtraParams>
+  <ExtraParams/>
   <PostArgs/>
   <CPUset/>
-  <DateInstalled>1695727567</DateInstalled>
+  <DateInstalled>1695730770</DateInstalled>
   <DonateText/>
   <DonateLink/>
-  <Requires/>
-  <Config Name="Config Path" Target="/home/headless/.config/obs-studio" Default="" Mode="rw" Description="" Type="Path" Display="always" Required="false" Mask="false">/mnt/user/appdata/obs</Config>
-  <Config Name="Port for obs-websocket" Target="4455" Default="4455" Mode="tcp" Description="" Type="Port" Display="always" Required="false" Mask="false">4455</Config>
-  <Config Name="novnc" Target="6901" Default="" Mode="tcp" Description="" Type="Port" Display="always" Required="false" Mask="false">6901</Config>
-  <Config Name="Vnc" Target="5901" Default="" Mode="tcp" Description="" Type="Port" Display="always" Required="false" Mask="false">5901</Config>
-  <Config Name="VNC Password" Target="VNC_PW" Default="" Mode="" Description="Set your VNC password" Type="Variable" Display="always" Required="false" Mask="true">headless</Config>
+  <Requires>You have to change the "Network Type" to "Custom: br0" in order to be able to find the NDI-Source of your desktop in the container an vice versa.</Requires>
+  <Config Name="VNC" Target="" Default="5901" Mode="tcp" Description="Port for VNC" Type="Port" Display="always" Required="false" Mask="false">5901</Config>
+  <Config Name="noVNC" Target="" Default="6901" Mode="tcp" Description="Port for noVNC" Type="Port" Display="always" Required="false" Mask="false">6901</Config>
+  <Config Name="WebSocket" Target="" Default="4455" Mode="tcp" Description="Port for OBS WebSocket" Type="Port" Display="always" Required="false" Mask="false">4455</Config>
+  <Config Name="OBS config path" Target="/home/headless/.config/obs-studio" Default="" Mode="rw" Description="path for storing the OBS config data" Type="Path" Display="always" Required="false" Mask="false"/>
+  <Config Name="VNC password" Target="VNC_PW" Default="headless" Mode="" Description="set your VNC password (default: headless)" Type="Variable" Display="always" Required="false" Mask="true"/>
   <Config Name="PUID" Target="PUID" Default="" Mode="" Description="" Type="Variable" Display="advanced" Required="false" Mask="false">99</Config>
   <Config Name="PGID" Target="PGID" Default="" Mode="" Description="" Type="Variable" Display="advanced" Required="false" Mask="false">100</Config>
 </Container>
