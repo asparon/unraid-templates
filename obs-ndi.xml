@@ -41,9 +41,9 @@ add --device=/dev/dri (not tested yet)</Overview>
   <DonateText/>
   <DonateLink/>
   <Requires>You have to change the "Network Type" to "Custom: br0" in order to be able to find the NDI-Source of your desktop in the container an vice versa.</Requires>
-  <Config Name="VNC" Target="" Default="5901" Mode="tcp" Description="Port for VNC" Type="Port" Display="always" Required="false" Mask="false">5901</Config>
-  <Config Name="noVNC" Target="" Default="6901" Mode="tcp" Description="Port for noVNC" Type="Port" Display="always" Required="false" Mask="false">6901</Config>
-  <Config Name="WebSocket" Target="" Default="4455" Mode="tcp" Description="Port for OBS WebSocket" Type="Port" Display="always" Required="false" Mask="false">4455</Config>
+  <Config Name="VNC" Target="5901" Default="5901" Mode="tcp" Description="Port for VNC" Type="Port" Display="always" Required="false" Mask="false">5901</Config>
+  <Config Name="noVNC" Target="6901" Default="6901" Mode="tcp" Description="Port for noVNC" Type="Port" Display="always" Required="false" Mask="false">6901</Config>
+  <Config Name="WebSocket" Target="4455" Default="4455" Mode="tcp" Description="Port for OBS WebSocket" Type="Port" Display="always" Required="false" Mask="false">4455</Config>
   <Config Name="OBS config path" Target="/home/headless/.config/obs-studio" Default="" Mode="rw" Description="path for storing the OBS config data" Type="Path" Display="always" Required="false" Mask="false"/>
   <Config Name="VNC password" Target="VNC_PW" Default="headless" Mode="" Description="set your VNC password (default: headless)" Type="Variable" Display="always" Required="false" Mask="true"/>
   <Config Name="PUID" Target="PUID" Default="" Mode="" Description="" Type="Variable" Display="advanced" Required="false" Mask="false">99</Config>
